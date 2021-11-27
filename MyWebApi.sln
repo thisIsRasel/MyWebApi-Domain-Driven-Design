@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebService", "WebHook\WebService.csproj", "{F5F9D82E-CA4A-494D-A4A8-D745FBC17151}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebService", "WebService\WebService.csproj", "{F5F9D82E-CA4A-494D-A4A8-D745FBC17151}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{D597E24A-6F38-49E3-B862-763EECF8EF86}"
 EndProject
