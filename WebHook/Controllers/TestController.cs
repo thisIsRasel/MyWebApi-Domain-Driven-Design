@@ -17,10 +17,10 @@ namespace WebService.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("CreateBook")]
-        public async Task<ActionResult> Index()
+        [HttpPost("CreateBook")]
+        public async Task<ActionResult> Create([FromBody] CreateBookCommand command)
         {
-            var res = await _mediator.Send(new CreateBookCommand());
+            var res = await _mediator.Send(command);
             return Ok(res);
         }
     }

@@ -15,6 +15,7 @@ namespace Infrastructure
         {
             services.AddTransient<IMongoContext, MongoContext>();
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             services.AddMediatR(typeof(CreateBookCommandHandler).Assembly);
             services.AddTransient<IBookWriteRepository, BookWriteRepository>();

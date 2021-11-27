@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Application.CreateBook
 {
-    public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, string>
+    public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, bool>
     {
         private readonly IBookWriteRepository _bookWriteRepository;
 
@@ -13,19 +13,19 @@ namespace Application.CreateBook
             _bookWriteRepository = bookWriteRepository;
         }
 
-        public Task<string> Handle(CreateBookCommand request, CancellationToken cancellationToken)
+        public Task<bool> Handle(CreateBookCommand command, CancellationToken cancellationToken)
         {
-            CreateBook();
+            CreateBook(command);
 
-            return Task.FromResult<string>("Something in command handler!");
+            return Task.FromResult(true);
         }
 
-        public void CreateBook()
+        public void CreateBook(CreateBookCommand command)
         {
             _bookWriteRepository.Add(new Book
             {
-                ItemId = Guid.NewGuid().ToString(),
-                Title = "Mathematics"
+                ItemId = command.ItemId ?? Guid.NewGuid().ToString(),
+                Title = command.Title
             });
         }
     }
