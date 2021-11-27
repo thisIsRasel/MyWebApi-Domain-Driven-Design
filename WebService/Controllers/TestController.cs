@@ -21,6 +21,7 @@ namespace WebService.Controllers
         public async Task<ActionResult> Create([FromBody] CreateBookCommand command)
         {
             var res = await _mediator.Send(command);
+
             return Ok(res);
         }
     }
