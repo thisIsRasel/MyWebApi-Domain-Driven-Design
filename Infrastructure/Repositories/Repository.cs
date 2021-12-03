@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Infrastructure.DbContext;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Infrastructure.Repositories
@@ -14,19 +15,24 @@ namespace Infrastructure.Repositories
             _collection = context.GetCollection<TEntity>(typeof(TEntity).Name);
         }
 
-        public void Delete()
+        public void Delete(TEntity entity)
         {
-            throw new NotImplementedException();
+            var document = entity.ToBsonDocument();
+            var filter = Builders<TEntity>.Filter.Eq("_id", document.GetElement("_id").Value);
+            _collection.DeleteOne(filter);
         }
 
-        public void Insert(TEntity obj)
+        public void Insert(TEntity entity)
         {
-            _collection.InsertOne(obj);
+            _collection.InsertOne(entity);
         }
 
-        public void Update()
+        public void Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            var document = entity.ToBsonDocument();
+            var filter = Builders<TEntity>.Filter.Eq("_id", document.GetElement("_id").Value);
+            var option = new ReplaceOptions { IsUpsert = true };
+            _collection.ReplaceOne(filter, entity, option);
         }
     }
 }

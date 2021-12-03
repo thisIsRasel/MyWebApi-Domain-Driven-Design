@@ -17,5 +17,15 @@ namespace Infrastructure.Repositories
         {
             _repository.Insert(book);
         }
+
+        public void Delete(Book book)
+        {
+            _repository.Delete(book);
+        }
+
+        public void Update(Book book)
+        {
+            _repository.Update(book);
+        }
     }
 }

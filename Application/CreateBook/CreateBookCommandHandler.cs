@@ -22,10 +22,16 @@ namespace Application.CreateBook
 
         public void CreateBook(CreateBookCommand command)
         {
-            _bookWriteRepository.Add(new Book
+            //_bookWriteRepository.Add(new Book
+            //{
+            //    ItemId = command.ItemId ?? Guid.NewGuid().ToString(),
+            //    Title = command.Title
+            //});
+
+            _bookWriteRepository.Update(new Book
             {
-                ItemId = command.ItemId ?? Guid.NewGuid().ToString(),
-                Title = command.Title
+                ItemId = command.ItemId,
+                Title = command.Title,
             });
         }
     }

@@ -3,10 +3,10 @@
     public interface IRepository<T>
         where T : class
     {
-        void Insert(T obj);
+        void Insert(T entity);
 
-        void Update();
+        void Update(T entity);
 
-        void Delete();
+        void Delete(T entity);
     }
 }
