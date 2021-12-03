@@ -21,7 +21,7 @@ namespace Infrastructure.Repositories
 
         public void Insert(TEntity obj)
         {
-            _collection.InsertOneAsync(obj);
+            _collection.InsertOne(obj);
         }
 
         public void Update()
