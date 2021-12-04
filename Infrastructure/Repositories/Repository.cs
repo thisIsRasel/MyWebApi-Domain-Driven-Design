@@ -15,6 +15,19 @@ namespace Infrastructure.Repositories
             _collection = context.GetCollection<TEntity>(typeof(TEntity).Name);
         }
 
+        public async Task<IEnumerable<TEntity>> GetItemsAsync()
+        {
+            var result = await _collection.FindAsync(new BsonDocument());
+            return result.ToList();
+        }
+
+        public async Task<TEntity> GetItemAsync(string itemId)
+        {
+            var filter = Builders<TEntity>.Filter.Eq("_id", itemId);
+            var result = await _collection.FindAsync(filter);
+            return result.FirstOrDefault();
+        }
+
         public void Delete(TEntity entity)
         {
             var document = entity.ToBsonDocument();

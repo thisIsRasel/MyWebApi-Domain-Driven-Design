@@ -2,7 +2,7 @@
 {
     public interface IBookWriteRepository
     {
-        void Add(Book book);
+        void Create(Book book);
 
         void Update(Book book);
 

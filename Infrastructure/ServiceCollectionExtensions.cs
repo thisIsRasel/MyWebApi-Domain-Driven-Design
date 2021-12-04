@@ -27,7 +27,8 @@ namespace Infrastructure
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             services.AddMediatR(typeof(CreateBookCommandHandler).Assembly);
-            services.AddTransient<IBookWriteRepository, BookWriteRepository>();
+            services.AddTransient<IBookWriteRepository, BookRepository>();
+            services.AddTransient<IBookReadRepository, BookRepository>();
         }
     }
 }

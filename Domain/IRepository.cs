@@ -1,12 +1,16 @@
 ﻿namespace Domain
 {
-    public interface IRepository<T>
-        where T : class
+    public interface IRepository<TEntity>
+        where TEntity : class
     {
-        void Insert(T entity);
+        Task<IEnumerable<TEntity>> GetItemsAsync();
 
-        void Update(T entity);
+        Task<TEntity> GetItemAsync(string itemId);
 
-        void Delete(T entity);
+        void Insert(TEntity entity);
+
+        void Update(TEntity entity);
+
+        void Delete(TEntity entity);
     }
 }

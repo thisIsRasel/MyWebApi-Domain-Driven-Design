@@ -6,33 +6,48 @@ namespace Application.CreateBook
     public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, bool>
     {
         private readonly IBookWriteRepository _bookWriteRepository;
+        private readonly IBookReadRepository _bookReadRepository;
 
         public CreateBookCommandHandler(
-            IBookWriteRepository bookWriteRepository)
+            IBookWriteRepository bookWriteRepository,
+            IBookReadRepository bookReadRepository)
         {
             _bookWriteRepository = bookWriteRepository;
+            _bookReadRepository = bookReadRepository;
         }
 
-        public Task<bool> Handle(CreateBookCommand command, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CreateBookCommand command, CancellationToken cancellationToken)
         {
-            CreateBook(command);
+            var book = await GetBookAsync(command.ItemId);
 
-            return Task.FromResult(true);
-        }
+            PrepareBook(book, command);
 
-        public void CreateBook(CreateBookCommand command)
-        {
-            //_bookWriteRepository.Add(new Book
-            //{
-            //    ItemId = command.ItemId ?? Guid.NewGuid().ToString(),
-            //    Title = command.Title
-            //});
-
-            _bookWriteRepository.Update(new Book
+            if(string.IsNullOrWhiteSpace(book.ItemId))
             {
-                ItemId = command.ItemId,
-                Title = command.Title,
-            });
+                book.ItemId = command.ItemId ?? Guid.NewGuid().ToString();
+                _bookWriteRepository.Create(book);
+                return true;
+            }
+
+            _bookWriteRepository.Update(book);
+            return true;
+        }
+
+        private async Task<Book> GetBookAsync(string itemId)
+        {
+            var book = await _bookReadRepository.GetBookAsync(itemId);
+
+            if(book == null)
+            {
+                book = new Book();
+            }
+
+            return book;
+        }
+
+        public void PrepareBook(Book book, CreateBookCommand command)
+        {
+            book.Title = command.Title;
         }
     }
 }
