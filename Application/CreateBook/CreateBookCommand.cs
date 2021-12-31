@@ -10,7 +10,8 @@ namespace Application.CreateBook
         public string Title { get; set; } = default!;
     }
 
-    public class CreateBookCommandValidator : AbstractValidator <CreateBookCommand>
+    public class CreateBookCommandValidator
+        : AbstractValidator <CreateBookCommand>
     {
         public CreateBookCommandValidator()
         {

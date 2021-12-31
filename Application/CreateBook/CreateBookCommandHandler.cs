@@ -45,7 +45,7 @@ namespace Application.CreateBook
             return book;
         }
 
-        public void PrepareBook(Book book, CreateBookCommand command)
+        private void PrepareBook(Book book, CreateBookCommand command)
         {
             book.Title = command.Title;
         }

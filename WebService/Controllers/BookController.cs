@@ -8,11 +8,11 @@ namespace WebService.Controllers
     [ApiController]
     [Route("[controller]")]
     [Produces(MediaTypeNames.Application.Json)]
-    public class TestController : ControllerBase
+    public class BookController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public TestController(IMediator mediator)
+        public BookController(IMediator mediator)
         {
             _mediator = mediator;
         }

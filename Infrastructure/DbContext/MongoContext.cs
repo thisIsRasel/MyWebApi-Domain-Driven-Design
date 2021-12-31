@@ -15,7 +15,7 @@ namespace Infrastructure.DbContext
 
         public IMongoCollection<T> GetCollection<T>(string name)
         {
-            return _database.GetCollection<T>(name);
+            return _database.GetCollection<T>(name + "s");
         }
     }
 }
