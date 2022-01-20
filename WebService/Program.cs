@@ -1,3 +1,4 @@
+using GraphiQl;
 using Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,5 +25,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseGraphiQl("/graphql");
 
 app.Run();

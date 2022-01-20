@@ -3,6 +3,7 @@ using Domain;
 using Domain.AggregatesModel.BookAggregate;
 using Domain.AppSettings;
 using Infrastructure.DbContext;
+using Infrastructure.Graphql;
 using Infrastructure.Repositories;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +30,8 @@ namespace Infrastructure
             services.AddMediatR(typeof(CreateBookCommandHandler).Assembly);
             services.AddTransient<IBookWriteRepository, BookRepository>();
             services.AddTransient<IBookReadRepository, BookRepository>();
+
+            services.AddScoped<BookQuery>();
         }
     }
 }
