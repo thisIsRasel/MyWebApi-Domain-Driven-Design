@@ -1,5 +1,6 @@
 using GraphiQl;
 using Infrastructure;
+using WebService.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<TestMiddleware>();
 
 app.UseAuthorization();
 
