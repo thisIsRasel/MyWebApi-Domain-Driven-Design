@@ -13,6 +13,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0-preview.1.22076.8" />
+    <PackageReference Include="NServiceBus" Version="7.6.0" />
   </ItemGroup>
 
   <ItemGroup>

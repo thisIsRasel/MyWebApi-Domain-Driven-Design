@@ -1,5 +1,8 @@
+using Application.CreateBook;
+using Application.SendMessage;
 using GraphiQl;
 using Infrastructure;
+using NServiceBus;
 using WebService.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +14,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddServices();
+
+builder.Host.UseNServiceBus(context =>
+ {
+     var endpointConfiguration = new EndpointConfiguration("WebService");
+     var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
+     transport.ConnectionString("amqp://guest:guest@localhost:5672/");
+     transport.UseConventionalRoutingTopology();
+
+     var routing = transport.Routing();
+     routing.RouteToEndpoint(typeof(SendMessageCommand), "Host");
+
+     return endpointConfiguration;
+ });
 
 var app = builder.Build();
 
