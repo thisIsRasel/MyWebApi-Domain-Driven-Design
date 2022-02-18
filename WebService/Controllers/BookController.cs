@@ -1,5 +1,7 @@
 ﻿using Application.CreateBook;
+using Application.SendEvent;
 using Application.SendMessage;
+using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NServiceBus;
@@ -14,11 +16,16 @@ namespace WebService.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMessageSession _messageSession;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public BookController(IMediator mediator, IMessageSession messageSession)
+        public BookController(
+            IMediator mediator,
+            IMessageSession messageSession,
+            IPublishEndpoint publishEndpoint)
         {
             _mediator = mediator;
             _messageSession = messageSession;
+            _publishEndpoint = publishEndpoint;
         }
 
         [HttpPost("CreateBook")]
@@ -37,6 +44,14 @@ namespace WebService.Controllers
         {
             await _messageSession.Send(command)
                 .ConfigureAwait(false);
+
+            return Ok();
+        }
+
+        [HttpPost("SendEvent")]
+        public async Task<ActionResult> SendEvent([FromBody] SendEvent command)
+        {
+            await _publishEndpoint.Publish(command);
 
             return Ok();
         }

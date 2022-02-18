@@ -1,7 +1,9 @@
 using Application.CreateBook;
+using Application.SendEvent;
 using Application.SendMessage;
 using GraphiQl;
 using Infrastructure;
+using MassTransit;
 using NServiceBus;
 using WebService.Middlewares;
 
@@ -27,6 +29,14 @@ builder.Host.UseNServiceBus(context =>
 
      return endpointConfiguration;
  });
+
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.ConfigureEndpoints(context);
+    });
+});
 
 var app = builder.Build();
 

@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.0-develop.382" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.2-mauipre.1.22102.15" />
     <PackageReference Include="NServiceBus" Version="7.6.0" />
     <PackageReference Include="NServiceBus.Extensions.Hosting" Version="1.1.0" />
